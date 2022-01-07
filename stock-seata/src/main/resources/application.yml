@@ -1,0 +1,81 @@
+server:
+  port: 8051
+  #  应用名称，nacos默认以应用名称作为服务名称
+spring:
+  application:
+    name: stock-seata-service
+  profiles:
+    active: dev #可通过profile，当前环境来查找需要使用的配置文件，必须配置前缀，否则以默认application.name作为前缀，造成无法指定微服务名字
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8850
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public #命名空间，在nacos上创建命名空间可以区分当前环境：dev/pro/uat
+    alibaba:
+      seata:
+        tx-service-group: beijing
+
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/stock?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+# mybatis
+#mybatis:
+#  mapper-locations: classpath:mapping/*Mapper.xml
+#  type-aliases-package: com.wangsh.spirngcloudforalibaba.entity
+
+#mybatis-plus
+#mybatis-plus.mapper-locations:classpath:com/mht/springbootmybatisplus/mapper/xml/*.xml
+#mybatis-plus.type-aliases-package=com.mht.springbootmybatisplus.entity
+#mybatis-plus.configuration.map-underscore-to-camel-case: true
+
+#显示执行的SQL
+logging:
+  level:
+    com:
+      wangsh:
+        spirngcloudforalibaba: debug
+
+#mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath:/mappers/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.wangsh.spirngcloudforalibaba.entity
+  # 原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+
+#seata-server 地址信息
+seata:
+  enable-auto-data-source-proxy: true
+#  data-source-proxy-mode: AT
+  enabled: true
+  registry:
+    #seata服务端注册中心
+    type: nacos
+    nacos:
+      #seata-server所在的nacos地址配置
+      server-addr: 127.0.0.1:8850
+      #seata服务端服务名
+      application: seata-server
+      password: nacos
+      username: nacos
+      #seata所在nacos的分组名称
+      group: SEATA_GROUP
+#      namespace:
+  #Seata配置中心
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8850
+      password: nacos
+      username: nacos
+      group: SEATA_GROUP
+#      namespace:

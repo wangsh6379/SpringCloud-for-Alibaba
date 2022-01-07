@@ -1,0 +1,36 @@
+server:
+  port: 8010
+#  应用名称，nacos默认以应用名称作为服务名称
+spring:
+  application:
+    name: order-openfeign-service
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8850
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public  #命名空间，在nacos上创建命名空间可以区分当前环境：dev/pro/uat
+
+#正常启动项目，默认是info等级，而feign的日志级别是debug，需要修改项目日志级别
+#指定项目包的日志级别是debug
+logging:
+  level:
+    com.wangsh.spirngcloudforalibaba.feign: debug
+
+#第二种办法设置指定服务打印日志，设置服务日志级别，打印调用服务日志
+feign:
+  client:
+    config:
+      product-nacos-service:
+        loggerLevel: BASIC
+      stock-service:
+        loggerLevel: BASIC
+#        contract: feign.Contract.Default #契约配置，将feign注解还原成原生注解.老版本才会用到，现在几乎不用了
+        #连接超时时间，默认2S。网络调用时间
+        connecTimeout: 5000
+        #请求处理超时时间，服务处理时间
+        readTimeout: 3000
+        #通过yam配置拦截器生效
+        requestInterceptors[0]:
+          com.wangsh.spirngcloudforalibaba.intercepter.CustomFeignIntercepter

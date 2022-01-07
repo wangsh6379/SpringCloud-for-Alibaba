@@ -1,0 +1,21 @@
+server:
+  port: 8010
+
+spring:
+  application:
+    name: api-gateway-service
+  cloud:
+#   gateway配置
+    gateway:
+#    使用默认定位的路由规则，通过服务名进行路由，请求中必须是微服务名。使用nacs服务名，约定大于配置。
+# 这种不常用，因为无法用到断言与过滤器的功能，不够灵活
+      discovery:
+        locator:
+          enabled: true
+#配置nacos
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8850
+        username: nacos
+        password: nacos
+        namespace: public

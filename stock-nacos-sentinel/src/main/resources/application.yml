@@ -1,0 +1,23 @@
+server:
+  port: 8023
+  #  应用名称，nacos默认以应用名称作为服务名称
+spring:
+  application:
+    name: stock-service-sentinel
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8850
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public #命名空间，在nacos上创建命名空间可以区分当前环境：dev/pro/uat
+#       ephemeral: false  #永久事例即使宕机也不会移除
+
+#集成sentinel
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+      web-context-unify: false
+
+
+

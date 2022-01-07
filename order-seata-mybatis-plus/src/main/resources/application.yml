@@ -1,0 +1,40 @@
+server:
+  port: 8050
+#  应用名称，nacos默认以应用名称作为服务名称
+spring:
+  application:
+    name: order-seata-service
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8850
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public #命名空间，在nacos上创建命名空间可以区分当前环境：dev/pro/uat
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/order?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
+  #实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: com.wangsh.spirngcloudforalibaba.model
+# 显示执行的SQL
+logging:
+  level:
+    com:
+      wangsh:
+        spirngcloudforalibaba: debug

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!--spring与alibaba提供了项目的脚手架，提供一套的版本组件依赖-->
+
+    <!--子模块-->
+    <modules>
+        <module>Order</module>
+        <module>Stock</module>
+        <module>order-nacos</module>
+        <module>stock-nacos</module>
+        <module>order-ribbon</module>
+        <module>order-loadbalancer</module>
+        <module>order-openfeign</module>
+        <module>product-nacos</module>
+        <module>config-nacos</module>
+        <module>order-sentinel</module>
+        <module>stock-nacos-sentinel</module>
+        <module>order-seata-skywalking</module>
+        <module>stock-seata</module>
+        <module>order-seata-mybatis-plus</module>
+        <module>gateway</module>
+    </modules>
+
+    <!--这里可以继承公司内部的父版本-->
+    <!--<parent>-->
+    <!--<groupId>org.springframework.boot</groupId>-->
+    <!--<artifactId>spring-boot-starter-parent</artifactId>-->
+    <!--<version>2.3.2.RELEASE</version>-->
+    <!--<relativePath/> -->
+    <!--</parent>-->
+
+    <groupId>com.wangsh</groupId>
+    <artifactId>spirngcloudforalibaba</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>spirngcloudforalibaba</name>
+    <description>alibaba demo</description>
+
+    <!--父项目进行管理子项目-->
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <spring.boot.version>2.3.12.RELEASE</spring.boot.version>
+        <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
+        <spring.cloud.alibaba.version>2.2.7.RELEASE</spring.cloud.alibaba.version>
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+    </properties>
+
+    <!--maven 多继承关系-->
+    <dependencyManagement>
+        <dependencies>
+            <!--springcloud 版本管理-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--springcloud alibab 版本管理-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--springboot 版本管理-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <!--<artifactId>spring-boot-starter-parent</artifactId>-->
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!--springboot基本启动器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!--springboot测试-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.18</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,16 @@
+server:
+  port: 8022
+  #  应用名称，nacos默认以应用名称作为服务名称
+spring:
+  application:
+    name: stock-service
+  profiles:
+    active: dev #可通过profile，当前环境来查找需要使用的配置文件，必须配置前缀，否则以默认application.name作为前缀，造成无法指定微服务名字
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8850
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public #命名空间，在nacos上创建命名空间可以区分当前环境：dev/pro/uat
+

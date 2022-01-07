@@ -1,0 +1,20 @@
+server:
+  port: 8010
+
+spring:
+  application:
+    name: api-gateway-service
+  cloud:
+#   gateway配置
+    gateway:
+#    路由配置
+      routes:
+        - id: order_route #路由唯一标识，路由到order
+          uri: http://127.0.0.1:8050 #需要转发的地址
+          predicates: #断言，用于匹配是否满足路由的规则
+           - Path=/order-serv/**
+#          请求网关 http://127.0.0.1:8010/order-serv/order/insert
+#          转发后地址：http://127.0.0.1:8050/order/insert
+          filters:
+            #将order-serv去除。转发前去掉第一层路径
+            - StripPrefix=1

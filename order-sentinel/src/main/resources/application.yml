@@ -1,0 +1,27 @@
+server:
+  port: 8070
+#  sentinel控制台的地址
+spring:
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+      web-context-unify: false
+      datasource:
+        flow: #命名随意
+          nacos:
+            server-addr: 127.0.0.1:8850
+            username: nacos
+            password: nacos
+            groupId: DEFAULT_GROUP
+            dataId: order-sentinel-datasource-nacos
+            rule-type: flow
+            data-type: json
+    nacos:
+      server-addr: 127.0.0.1:8850 #默认收敛了调用链路，true=不可用，false=打开链路。
+  application:
+    name: order-sentinel
+
+feign:
+  sentinel:
+    enabled: true #开启sentinel的支持

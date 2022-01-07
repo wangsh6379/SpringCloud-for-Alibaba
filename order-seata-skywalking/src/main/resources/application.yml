@@ -1,0 +1,65 @@
+server:
+  port: 8050
+#  应用名称，nacos默认以应用名称作为服务名称
+spring:
+  application:
+    name: order-seata-service
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8850
+      discovery:
+        username: nacos
+        password: nacos
+        #命名空间，在nacos上创建命名空间可以区分当前环境：dev/pro/uat
+        namespace: public
+    alibaba:
+      seata:
+        tx-service-group: beijing
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/order?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+
+# 显示执行的SQL
+logging:
+  level:
+    com:
+      wangsh:
+        spirngcloudforalibaba: debug
+
+#mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath:/mappers/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.wangsh.spirngcloudforalibaba.entity
+  # 原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+
+#seata-server 地址信息
+seata:
+  enabled: true
+  registry:
+    #seata服务端注册中心
+    type: nacos
+    nacos:
+      #seata-server所在的nacos地址配置
+      server-addr: 127.0.0.1:8850
+      #seata服务端服务名
+      application: seata-server
+      password: nacos
+      username: nacos
+      #seata所在nacos的分组名称
+      group: SEATA_GROUP
+  #Seata配置中心
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8850
+      password: nacos
+      username: nacos
+      group: SEATA_GROUP
+  enable-auto-data-source-proxy: true

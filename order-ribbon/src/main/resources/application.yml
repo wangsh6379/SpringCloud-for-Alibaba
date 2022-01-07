@@ -1,0 +1,18 @@
+server:
+  port: 8030
+#  应用名称，nacos默认以应用名称作为服务名称
+spring:
+  application:
+    name: order-ribbon
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8850
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public #命名空间，在nacos上创建命名空间可以区分当前环境：dev/pro/uat
+
+#配置访问服务使用nacos的负载均衡
+stock-service:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule

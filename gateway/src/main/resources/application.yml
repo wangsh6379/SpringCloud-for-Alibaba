@@ -1,0 +1,49 @@
+server:
+  port: 8010
+
+spring:
+  application:
+    name: api-gateway-service
+  cloud:
+#   gateway配置
+    gateway:
+#    路由配置
+      routes:
+        - id: order_route #路由唯一标识，路由到order
+          uri: lb://order-seata-service #需要转发的服务名. lb:loadbalance由nacos进行各个服务之间的负载均衡
+          predicates: #断言，用于匹配是否满足路由的规则
+            - Path=/order-serv/**
+  #          请求网关 http://127.0.0.1:8010/order-serv/order/insert
+  #          转发后地址：http://127.0.0.1:8050/order/insert
+#            - CheckAuth=wangsh,666 #CheckAuth 这个是自定义配置的类名前缀，必须遵循spring的约定大于配置，否则无法找到对应的predicate断言规则
+          filters:
+              #将order-serv去除。转发前去掉第一层路径
+            - StripPrefix=1
+            - CheckAuth= wangsh,999
+#            - AddRequestHeader=wangsh,blue
+# 配合跨越后允许不同的域名进行调用服务
+      globalcors:
+        cors-configurations:
+          '[/**]':
+#          开发环境设置： *
+            allowedOrigins: "https://docs.spring.io"
+            allowedMethods:
+            - GET
+            - POST
+#配置nacos
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8850
+        username: nacos
+        password: nacos
+        namespace: public
+
+#配置sentinel
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8011
+#      scg:
+#        fallback:
+#          mode: respones
+#          response-body: "{code:'888',message:'这是yml配置的自定义异常',data:''}"
+

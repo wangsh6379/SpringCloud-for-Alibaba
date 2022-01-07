@@ -1,0 +1,14 @@
+server:
+  port: 8032
+  #  应用名称，nacos默认以应用名称作为服务名称
+spring:
+  application:
+    name: product-nacos-service
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8850
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public #命名空间，在nacos上创建命名空间可以区分当前环境：dev/pro/uat
+
