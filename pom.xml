@@ -46,6 +46,7 @@
         <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.7.RELEASE</spring.cloud.alibaba.version>
         <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <skywalking.version>8.5.0</skywalking.version>
     </properties>
 
     <!--maven 多继承关系-->
